@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #e3f2fd;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #1976d2;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 60%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1565c0;
+        }
+
+        .weather-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .weather-icon {
+            font-size: 50px;
+        }
+        .div1{
+            display: flex;
+            gap: 20px;
+        }
+        .div2{
+            text-align: left;
+            flex-direction: column;
+        }
+        #move{
+            padding-top: 20px;
+        }
+        .text-danger {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ứng dụng Thời tiết</h1>
+        <div class="search-box">
+            <input type="text" id="city-input" placeholder="Nhập tên thành phố">
+            <button onclick="searchWeather()">Tìm kiếm</button>
+        </div>
+        <div id="weather-result"></div>
+    </div>
+    <script>
+        const weatherData = {
+            "Hà Nội": {
+                temperature: 25,
+                humidity: 70,
+                windSpeed: 5,
+                description: "Có mây",
+                icon: "☁️"
+            },
+            "Hồ Chí Minh": {
+                temperature: 32,
+                humidity: 75,
+                windSpeed: 7,
+                description: "Nắng",
+                icon: "☀️"
+            },
+            "Đà Nẵng": {
+                temperature: 28,
+                humidity: 82,
+                windSpeed: 12,
+                description: "Mưa rào",
+                icon: "🌧️"
+            }
+        };
+
+        function searchWeather() {
+            const cityInput = document.getElementById("city-input").value.trim().toLowerCase();
+            const weatherResult = document.getElementById("weather-result");
+
+            const cities = Object.keys(weatherData).reduce((acc, city) => {
+                acc[city.toLowerCase()] = city;
+                return acc;
+            }, {});
+
+            if (cities[cityInput]) {
+                const cityName = cities[cityInput];
+                const { temperature, humidity, windSpeed, description, icon } = weatherData[cityName];
+
+                weatherResult.innerHTML = `
+                    <div class="weather-card">
+                        <h3>${cityName}</h3>
+                        <div class="div1">
+                            <div class="weather-icon" id="move">${icon}</div>
+                            <h2 id="move">${temperature}°C</h2>
+                            <div class="div2">
+                                <p><strong>${description}</strong></p>
+                                <p>Độ ẩm: ${humidity}% </p>
+                                <p>Tốc độ gió: ${windSpeed} km/h</p>
+                            </div>
+                        </div>
+                    </div>
+                `;  
+            } else {
+                weatherResult.innerHTML = `
+                    <div class="weather-card text-danger">
+                        <h3>Không tìm thấy thông tin cho "${cityInput}"</h3>
+                        <p>Vui lòng nhập lại tên thành phố!</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+
+</html>
