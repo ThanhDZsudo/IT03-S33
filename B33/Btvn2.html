@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #inputText{
+            width: 200px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="inputText"></textarea>
+    <br>
+    <p><span id="result">0</span> kí tự</p>
+    <button onclick="countCharacters()">Kiểm tra</button>
+    <script>
+        function countCharacters() {
+            let text = document.getElementById("inputText").value;
+            let count = text.length;
+            document.getElementById("result").innerText = count;
+        }
+    </script>
+</body>
+</html>
